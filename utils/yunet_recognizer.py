@@ -92,4 +92,17 @@ while cap.isOpened():
             if confidence > 130:  # Adjust threshold as needed
                 name = label_map.get(label_id, "Unknown")
             else:
-               
+                name = "Unknown"
+
+            # Draw bounding box & label
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            cv2.putText(frame, f"{name} ({confidence:.2f})", (x, y - 10),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
+    cv2.imshow("Face Recognition", frame)
+    
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
